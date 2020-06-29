@@ -49,7 +49,7 @@ def model_builder(hp):
 
     model.compile(optimizer=keras.optimizers.Adam(learning_rate=hp_learning_rate),
                   loss=keras.losses.SparseCategoricalCrossentropy(from_logits=True),
-                  metrics=['accuracy'])
+                  metrics=['accuracy'])  # accuracy，用于判断模型效果的函数
     return model
 
 
@@ -68,7 +68,7 @@ if __name__ == '__main__':
     img_test = img_test.astype('float32') / 255.0
     # 使用 Hyperband 算法搜索超参数
     tuner = kt.Hyperband(model_builder,
-                         objective='val_accuracy',  # 优化的目标（函数）
+                         objective='val_accuracy',  # 优化的目标，验证集accuracy
                          max_epochs=10,  # 最大迭代次数
                          factor=3,
                          directory='my_dir',  # my_dir/intro_to_kt目录包含超参数搜索期间运行的详细日志和checkpoints
